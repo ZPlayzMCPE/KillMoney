@@ -1,0 +1,42 @@
+###################################
+# The configuration file for KillMoney v1.0
+# https://github.com/kenygamer/KillMoney
+###################################
+
+###########
+# Settings
+###########
+
+# Enter false to disable the plugin or true to turn it on whenever you want
+enable.plugin: true
+
+# The amount of money the killer will be rewarded with
+killer.money: 100
+
+# The amount of money the victim will lose when killed
+# Important: If the victim does not have the money then the killer will not be rewarded either
+victim.money: 100
+
+# The minimum amount of money that the victim must have for the killer to get the money reward
+# To handle this situation, a message will be returned to the killer explaining that the victim has no money to steal
+minimum.money: 1000
+
+##############
+# Message list
+##############
+
+# Format the messages using the following tags:
+
+# {killer}: The one who killed the victim
+# {victim}: The player who was killed
+# {money_gain}: Money won by the killer
+# {money_lost}: Money that lost the victim for being killed
+
+# Message that the killer gets when kills the victim and steal money from it
+killer.message: 'You have stolen {money_gain}$ from {victim}!'
+
+# Message that the victim gets when killed and loses money
+victim.message: 'You have lost {money_lost}$ for being killed by {killer}'
+
+# Message that the killer gets when kills the victim and is not rewarded
+noreward.message: '{victim} has no money to steal'
