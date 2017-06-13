@@ -25,13 +25,10 @@ Some features that come with this plugin:
 
 ```yaml
  killmoney.command:
-  description: "Get detailed information of the plugin"
   default: op
  killmoney.killer.receive.money:
-  description: "Receive money when killing another players"
   default: false
  killmoney.victim.lose.money:
-  description: "Lose money when being killed by another players"
   default: false
   ```
   
