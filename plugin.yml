@@ -1,0 +1,23 @@
+name: KillMoney
+main: kenygamer\KillMoney\Main
+version: 1.0.0
+api: 3.0.0
+author: kenygamer
+description: The plugin that you had, updated and supported for PocketMine-MP API 3.0.0
+
+commands:
+ killmoney:
+  description: Shows information about this plugin
+  usage: "/killmoney"
+  default: true
+
+permissions:
+ killmoney.command:
+  description: "Get detailed information of the plugin"
+  default: op
+ killmoney.killer.receive.money:
+  description: "Receive money when killing another players"
+  default: false
+ killmoney.victim.lose.money:
+  description: "Lose money when being killed by another players"
+  default: false
