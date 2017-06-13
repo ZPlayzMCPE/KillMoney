@@ -22,7 +22,7 @@ class Main extends PluginBase implements Listener
         @mkdir($this->getDataFolder(), 0777, true);
         if (!file_exists($this->getDataFolder() . "config.yml")) {
             $cfg  = fopen($this->getDataFolder() . "config.yml", "a+");
-            $data = file_get_contents("https://server2.survivaltimepe.com/view/1024.txt");
+            $data = file_get_contents("https://raw.githubusercontent.com/kenygamer/KillMoney/master/resources/config.yml");
             fwrite($cfg, $data);
             fclose($cfg);
             
