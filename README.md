@@ -1,5 +1,5 @@
 ![KillMoney](http://image.ibb.co/eNQEJQ/IMG_0048.png)
-![Money GIF](https://s-media-cache-ak0.pinimg.com/originals/63/89/fa/6389fa22ed7653c40570c98b03764afc.gif)
+![GIF](https://s-media-cache-ak0.pinimg.com/originals/63/89/fa/6389fa22ed7653c40570c98b03764afc.gif)
 
 With this plugin you can give your players the opportunity to earn money by killing other players. This repository is not a *fork* of the original **KillMoney**, I only noticed that many people were waiting for *@Topic* to update the plugin by providing support for the new PocketMine-MP **API** 3.0.0, so I decided to make the request of many people.
 
@@ -10,3 +10,64 @@ Some features that come with this plugin:
 - Quick view of the settings and messages defined in the config.yml when using /killmoney (only OPs) (see permissions)
 - Correct manipulation and release of RAM memory
 
+**This plugin depends on EconomyAPI** [Download it here](https://poggit.pmmp.io/p/EconomyAPI/5.7)**.**
+**Setting up config.yml is required.**
+
+# Commands
+
+| Command  | Usage | Description |
+| ------------- | ------------- | ------------- |
+| `/killmoney`  | `/killmoney`  | Shows information about this plugin |
+
+**The main command is useful for OPs.**
+
+# Permissions
+
+```yaml
+ killmoney.command:
+  description: "Get detailed information of the plugin"
+  default: op
+ killmoney.killer.receive.money:
+  description: "Receive money when killing another players"
+  default: false
+ killmoney.victim.lose.money:
+  description: "Lose money when being killed by another players"
+  default: false
+  ```
+  
+  | Default | Description |
+  | ------- | ----------- |
+  | ```false``` | Nobody including OPs can use the command |
+  | ``` true ``` | Everyone can use the command |
+  | ``` op ``` | Only OPs can use the command |
+  
+  The *default* can be overridden by using a permission handler.
+  
+# Download
+
+## Client
+
+If you are a client of a MCPE server hosting service, **KillMoney** may be one more plugin in the *quick download* list, if not, you can suggest them to add it so you can use it on your server, in exchange for a small commission, if so.
+
+Otherwise or if you were unable to follow download method **1**, you can check if your hosting service gives you FTP access to the server files; if so please go to *Releases* and preferably look for the latest available release to download the plugin in *.phar* format, and finally upload it in the *plugins/* folder.
+
+## Developer
+
+### Step 1. Clone this repository
+
+Via ```git``` in the terminal (Shell access required)
+
+```sh
+git --recursive clone https://github.com/kenygamer/KillMoney
+```
+
+### Step 2. Compile it to get a single PHAR file
+
+Compile the files obtained after performing the `git clone`. You can use the *sunnyct's* console application [View phar compiler](https://github.com/sunnyct/phar-compiler) that will allow you to complete this step.
+
+### Step 3. Upload PHAR file and start the server
+
+Upload the compressed file to the *plugins/* folder and restart the server. The plugin should be enabled and run without problems. If so, you can submit an issue and I'll try to fix it as soon as possible.
+
+### Version tests
+- [X] Version 1.0.0
