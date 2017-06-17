@@ -61,7 +61,7 @@ class Main extends PluginBase implements Listener
                 return true;
             }
         } else {
-            $this->getLogger()->info(TF::RED . "Invalid value for enable.plugin, please choose true or false.");
+            $this->getLogger()->info("§cInvalid value for enable.plugin, please choose true or false.");
             $this->getPluginLoader()->disablePlugin($this);
             return true;
         }
