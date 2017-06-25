@@ -40,28 +40,25 @@ class Main extends PluginBase implements Listener
             $data = file_get_contents("https://raw.githubusercontent.com/kenygamer/KillMoney/master/resources/config.yml");
             fwrite($cfg, $data);
             fclose($cfg);
-            
-            $cfg  = null;
-            $data = null;
         }
         
         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML, array());
         if ($this->config->get("enable.plugin") === false) {
-            $this->getLogger()->info("§eDisabling plugin, enable.plugin is set to false.");
+            $this->getLogger()->info(TextFormat::YELLOW . "Disabling plugin, enable.plugin is set to false.");
             $this->getPluginLoader()->disablePlugin($this);
             return true;
         } elseif ($this->config->get("enable.plugin") === true) {
             if (!is_dir($this->getServer()->getDataPath() . "/" . "plugins" . "/" . "EconomyAPI")) {
-                $this->getLogger()->info("§eEconomyAPI dependency was not found, so the plugin could not be enabled.");
+                $this->getLogger()->info(TextFormat::YELLOW . "EconomyAPI dependency was not found, so the plugin could not be enabled.");
                 $this->getPluginLoader()->disablePlugin($this);
                 return true;
             } else {
                 $this->getServer()->getPluginManager()->registerEvents($this, $this);
-                $this->getLogger()->info("§aEnabling " . $this->getDescription()->getFullName() . "...");
+                $this->getLogger()->info(TextFormat::GREEN . "Enabling " . $this->getDescription()->getFullName() . "...");
                 return true;
             }
         } else {
-            $this->getLogger()->info("§cInvalid value for enable.plugin, please choose true or false.");
+            $this->getLogger()->info(TextFormat::RED . "Invalid value for enable.plugin, please choose true or false.");
             $this->getPluginLoader()->disablePlugin($this);
             return true;
         }
@@ -70,7 +67,7 @@ class Main extends PluginBase implements Listener
     
     public function onDisable()
     {
-        $this->getLogger()->info("§cDisabling " . $this->getDescription()->getFullName() . "...");
+        $this->getLogger()->info(TextFormat::RED . "Disabling " . $this->getDescription()->getFullName() . "...");
     }
     
     public function onDeath(PlayerDeathEvent $event)
@@ -80,22 +77,22 @@ class Main extends PluginBase implements Listener
         if ($player->getLastDamageCause() instanceof EntityDamageByEntityEvent) {
             if ($player->getLastDamageCause()->getDamager() instanceof Player) {
                 $killer  = $player->getLastDamageCause()->getDamager();
-                $killerN = $killer->getName();
-                
+                $killerN = $killer->getName(); 
                 $money = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI")->myMoney($player->getName());
                 if (!is_numeric($this->config->get("minimum.money"))) {
-                    $this->getLogger()->info("§cNon-numeric value for minimum.money, please check that the config.yml is not corrupted.");
+                    $this->getLogger()->info(TextFormat::RED . "Non-numeric value for minimum.money, please check that the config.yml is not corrupted.");
+                    return true;
                 }
                 if ($money < $this->config->get("minimum.money") && $killer->hasPermission("killmoney.killer.receive.money")) {
-                    $money_gain   = 0;
-                    $money_lost   = 0;
-                    $search       = array(
+                    $money_gain = 0;
+                    $money_lost = 0;
+                    $search = array(
                         '{killer}',
                         '{victim}',
                         '{money_gain}',
                         '{money_lost}'
                     );
-                    $replace      = array(
+                    $replace = array(
                         $killerN,
                         $playerN,
                         $money_gain,
@@ -103,15 +100,14 @@ class Main extends PluginBase implements Listener
                     );
                     $noreward_msg = str_replace($search, $replace, $this->config->get("noreward.message"));
                     $killer->sendMessage($noreward_msg);
-                    $this->freeMemory();
                     return true;
                 } else {
                     if (!is_numeric($this->config->get("killer.money"))) {
-                        $this->getLogger()->info("§cNon-numeric value for killer.money, please check that the config.yml is not corrupted.");
+                        $this->getLogger()->info(TextFormat::RED . "Non-numeric value for killer.money, please check that the config.yml is not corrupted.");
                         return true;
                     }
                     if (!is_numeric($this->config->get("victim.money"))) {
-                        $this->getLogger()->info("§cNon-numeric value for minimum.money, please check that the config.yml is not corrupted.");
+                        $this->getLogger()->info(TextFormat::RED . "Non-numeric value for minimum.money, please check that the config.yml is not corrupted.");
                         return true;
                     }
                     $money_gain = $this->config->get("killer.money");
@@ -124,34 +120,34 @@ class Main extends PluginBase implements Listener
                     }
                     
                     if (empty($this->config->get("killer.message"))) {
-                        $this->getLogger()->info("§cUnexpected value for killer.message, please check that the config.yml is not corrupted.");
+                        $this->getLogger()->info(TextFormat::RED . "Unexpected value for killer.message, please check that the config.yml is not corrupted.");
                         return true;
                     }
                     if (empty($this->config->get("victim.message"))) {
-                        $this->getLogger()->info("§cUnexpected value for victim.message, please check that the config.yml is not corrupted.");
+                        $this->getLogger()->info(TextFormat::RED . "Unexpected value for victim.message, please check that the config.yml is not corrupted.");
                         return true;
                     }
                     
-                    $search     = array(
+                    $search = array(
                         '{killer}',
                         '{victim}',
                         '{money_gain}',
                         '{money_lost}'
                     );
-                    $replace    = array(
+                    $replace = array(
                         $killerN,
                         $playerN,
                         $money_gain,
                         $money_lost
                     );
                     $killer_msg = str_replace($search, $replace, $this->config->get("killer.message"));
-                    $search     = array(
+                    $search = array(
                         '{killer}',
                         '{victim}',
                         '{money_gain}',
                         '{money_lost}'
                     );
-                    $replace    = array(
+                    $replace = array(
                         $killerN,
                         $playerN,
                         $money_gain,
@@ -163,50 +159,26 @@ class Main extends PluginBase implements Listener
                     }
                     $player->sendMessage($victim_msg);
                     if ($player->hasPermission("killmoney.victim.lose.money")) {
+                        $player->sendMessage($victim_msg);
                     }
-                    $this->freeMemory();
                 }
             }
         }
     }
     
-    private function freeMemory()
-    {
-        /* A smart way to free some RAM */
-        $player       = null;
-        $playerN      = null;
-        $killer       = null;
-        $killerN      = null;
-        $money        = null;
-        $money_gain   = null;
-        $money_lost   = null;
-        $search       = null;
-        $replace      = null;
-        $noreward_msg = null;
-        $killer_msg   = null;
-        $victim_msg   = null;
-    }
-    
     public function onCommand(CommandSender $sender, Command $command, $label, array $args)
     {
-        if (strtolower($command->getName()) === "killmoney") {
+        if (strtolower($command->getName()) == "killmoney") {
             if ($sender->hasPermission("killmoney.command")) {
-                $fullname         = $this->getDescription()->getFullName();
-                $killermoney      = $this->config->get("killer.money");
-                $victimmoney      = $this->config->get("victim.money");
-                $minimummoney     = $this->config->get("minimum.money");
-                $api              = implode(",", $this->getDescription()->getCompatibleApis());
+                $fullname = $this->getDescription()->getFullName();
+                $killermoney = $this->config->get("killer.money");
+                $victimmoney = $this->config->get("victim.money");
+                $minimummoney = $this->config->get("minimum.money");
+                $api = implode(", ", $this->getDescription()->getCompatibleApis());
                 $noreward_message = $this->config->get("noreward.message");
-                $killer_message   = $this->config->get("killer.message");
-                $victim_message   = $this->config->get("victim.message");
+                $killer_message = $this->config->get("killer.message");
+                $victim_message = $this->config->get("victim.message");
                 $sender->sendMessage("§a---- §fShowing information of KillMoney §a----\n§6This server is running §a$fullname" . "\n§6Compatible API(s): §a" . $api . "\n§6Settings:-\n killer.money: §c$killermoney" . "$" . "\n§6 victim.money: §c$victimmoney" . "$" . "\n§6 minimum.money: §c$minimummoney" . "$" . "\n§6Messages:-\nnoreward.message: §c$noreward_message" . "\n§6killer.message: §c$killer_message" . "\n§6victim.message: §c$victim_message");
-                $fullname         = null;
-                $victimmoney      = null;
-                $minimummoney     = null;
-                $api              = null;
-                $noreward_message = null;
-                $killer_message   = null;
-                $victim_message   = null;
                 return true;
             } else {
                 $fullname = $this->getDescription()->getFullName();
