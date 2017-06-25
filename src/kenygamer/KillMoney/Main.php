@@ -180,6 +180,7 @@ class Main extends PluginBase implements Listener
                 $killer_message = $this->config->get("killer.message");
                 $victim_message = $this->config->get("victim.message");
                /* */
+               /* Syntax error, pending fix */
                 $sender->sendMessage(TextFormat::GREEN . "---- " . TextFormat::WHITE . "Showing information of KillMoney" . TextFormat::GREEN . "----" . PHP_EOL . TextFormat::GOLD . "This server is running " . TextFormat::GREEN . $this->getDescription()->getFullName() . PHP_EOL . TextFormat::GOLD . "Compatible API(s): " . TextFormat::GREEN . $API . PHP_EOL . TextFormat::GOLD . "Settings:-" . PHP_EOL . "killer.money: " . TextFormat::RED . $KillerMoney" . "$" . PHP_EOL . TextFormat::GOLD . "victim.money: " . TextFormat::RED . $VictimMoney . "$" . PHP_EOL . TextFormat::GOLD . "minimum.money: " . TextFormat::RED . $MinimumMoney . "$" . PHP_EOL . TextFormat::GOLD . "Messages:-" . PHP_EOL . "noreward.message: " . TextFormat::RED . $noreward_message" . PHP_EOL . TextFormat::GOLD . "killer.message: " . TextFormat::RED . $killer_message" . PHP_EOL . TextFormat::GOLD . "victim.message: " . TextFormat::RED . $victim_message);
                 return true;
             } else {
