@@ -67,6 +67,6 @@ Compile the files obtained after performing the `git clone`. You can use the *su
 Upload the compressed file to the *plugins/* folder and restart the server. The plugin should be enabled and run without problems. If so, you can submit an issue and I'll try to fix it as soon as possible.
 
 ### Version tests
-- [ ] Version 1.0.0
-- [ ] Version 1.0.1
+- [X] Version 1.0.0
+- [X] Version 1.0.1
 - [X] Version 1.1.0
