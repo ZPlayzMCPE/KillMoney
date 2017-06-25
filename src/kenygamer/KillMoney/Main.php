@@ -30,6 +30,7 @@ use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener
 {
+    protected $config;
     
     public function onEnable()
     {
@@ -170,20 +171,20 @@ class Main extends PluginBase implements Listener
     {
         if (strtolower($command->getName()) == "killmoney") {
             if ($sender->hasPermission("killmoney.command")) {
-                $fullname = $this->getDescription()->getFullName();
-                $killermoney = $this->config->get("killer.money");
-                $victimmoney = $this->config->get("victim.money");
-                $minimummoney = $this->config->get("minimum.money");
-                $api = implode(", ", $this->getDescription()->getCompatibleApis());
+               /* Config settings */
+                $KillerMoney = $this->config->get("killer.money");
+                $VictimMoney = $this->config->get("victim.money");
+                $MinimumMoney = $this->config->get("minimum.money");
+                $API = implode(", ", $this->getDescription()->getCompatibleApis());
                 $noreward_message = $this->config->get("noreward.message");
                 $killer_message = $this->config->get("killer.message");
                 $victim_message = $this->config->get("victim.message");
-                $sender->sendMessage("§a---- §fShowing information of KillMoney §a----\n§6This server is running §a$fullname" . "\n§6Compatible API(s): §a" . $api . "\n§6Settings:-\n killer.money: §c$killermoney" . "$" . "\n§6 victim.money: §c$victimmoney" . "$" . "\n§6 minimum.money: §c$minimummoney" . "$" . "\n§6Messages:-\nnoreward.message: §c$noreward_message" . "\n§6killer.message: §c$killer_message" . "\n§6victim.message: §c$victim_message");
+               /* */
+                $sender->sendMessage(TextFormat::GREEN . "---- " . TextFormat::WHITE . "Showing information of KillMoney" . TextFormat::GREEN . "----" . PHP_EOL . TextFormat::GOLD . "This server is running " . TextFormat::GREEN . $this->getDescription()->getFullName() . PHP_EOL . TextFormat::GOLD . "Compatible API(s): " . TextFormat::GREEN . $API . PHP_EOL . TextFormat::GOLD . "Settings:-" . PHP_EOL . "killer.money: " . TextFormat::RED . $KillerMoney" . "$" . PHP_EOL . TextFormat::GOLD . "victim.money: " . TextFormat::RED . $VictimMoney . "$" . PHP_EOL . TextFormat::GOLD . "minimum.money: " . TextFormat::RED . $MinimumMoney . "$" . PHP_EOL . TextFormat::GOLD . "Messages:-" . PHP_EOL . "noreward.message: " . TextFormat::RED . $noreward_message" . PHP_EOL . TextFormat::GOLD . "killer.message: " . TextFormat::RED . $killer_message" . PHP_EOL . TextFormat::GOLD . "victim.message: " . TextFormat::RED . $victim_message);
                 return true;
             } else {
-                $fullname = $this->getDescription()->getFullName();
-                $sender->sendMessage("§6This server is running §a$fullname" . "\n§bgithub.com/kenygamer/KillMoney");
-                $fullname = null;
+               /* It's one command, so not using prefixes */
+                $sender->sendMessage(TextFormat::GOLD . "This server is running " . TextFormat::GREEN . $this->getDescription()->getFullName() . PHP_EOL . TextFormat::AQUA . "github.com/kenygamer/KillMoney");
                 return true;
             }
         }
