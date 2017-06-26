@@ -17,7 +17,7 @@ permissions:
   default: op
  killmoney.killer.receive.money:
   description: "Receive money when killing another players"
-  default: false
+  default: true
  killmoney.victim.lose.money:
   description: "Lose money when being killed by another players"
   default: false
