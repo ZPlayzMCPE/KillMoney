@@ -44,6 +44,7 @@ class Main extends PluginBase implements Listener
             fclose($cfg);
         }*/
         
+        $this->saveResource("config.yml");
         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML, array());
         if ($this->config->get("enable.plugin") === false) {
             $this->getLogger()->info(TextFormat::YELLOW . "Disabling plugin, enable.plugin is set to false.");
