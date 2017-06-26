@@ -20,4 +20,4 @@ permissions:
   default: true
  killmoney.victim.lose.money:
   description: "Lose money when being killed by another players"
-  default: false
+  default: true
