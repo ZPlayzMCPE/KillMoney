@@ -49,21 +49,21 @@ class Main extends PluginBase implements Listener
         if ($this->config->get("enable.plugin") === false) {
             $this->getLogger()->info(TextFormat::YELLOW . "Disabling plugin, enable.plugin is set to false.");
             $this->getPluginLoader()->disablePlugin($this);
-            return true;
+            return;
         } elseif ($this->config->get("enable.plugin") === true) {
             if (!is_dir($this->getServer()->getDataPath() . "/" . "plugins" . "/" . "EconomyAPI")) {
                 $this->getLogger()->info(TextFormat::YELLOW . "EconomyAPI dependency was not found, so the plugin could not be enabled.");
                 $this->getPluginLoader()->disablePlugin($this);
-                return true;
+                return;
             } else {
                 $this->getServer()->getPluginManager()->registerEvents($this, $this);
                 $this->getLogger()->info(TextFormat::GREEN . "Enabling " . $this->getDescription()->getFullName() . "...");
-                return true;
+                return;
             }
         } else {
             $this->getLogger()->info(TextFormat::RED . "Invalid value for enable.plugin, please choose true or false.");
             $this->getPluginLoader()->disablePlugin($this);
-            return true;
+            return;
         }
         
     }
@@ -84,7 +84,7 @@ class Main extends PluginBase implements Listener
                 $money = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI")->myMoney($player->getName());
                 if (!is_numeric($this->config->get("minimum.money"))) {
                     $this->getLogger()->info(TextFormat::RED . "Non-numeric value for minimum.money, please check that the config.yml is not corrupted.");
-                    return true;
+                    return;
                 }
                 if ($money < $this->config->get("minimum.money") && $killer->hasPermission("killmoney.killer.receive.money")) {
                     $money_gain = 0;
@@ -103,15 +103,15 @@ class Main extends PluginBase implements Listener
                     );
                     $noreward_msg = str_replace($search, $replace, $this->config->get("noreward.message"));
                     $killer->sendMessage($noreward_msg);
-                    return true;
+                    return;
                 } else {
                     if (!is_numeric($this->config->get("killer.money"))) {
                         $this->getLogger()->info(TextFormat::RED . "Non-numeric value for killer.money, please check that the config.yml is not corrupted.");
-                        return true;
+                        return;
                     }
                     if (!is_numeric($this->config->get("victim.money"))) {
                         $this->getLogger()->info(TextFormat::RED . "Non-numeric value for victim.money, please check that the config.yml is not corrupted.");
-                        return true;
+                        return;
                     }
                     $money_gain = $this->config->get("killer.money");
                     $money_lost = $this->config->get("victim.money");
@@ -124,11 +124,11 @@ class Main extends PluginBase implements Listener
                     
                     if (empty($this->config->get("killer.message"))) {
                         $this->getLogger()->info(TextFormat::RED . "Unexpected value for killer.message, please check that the config.yml is not corrupted.");
-                        return true;
+                        return;
                     }
                     if (empty($this->config->get("victim.message"))) {
                         $this->getLogger()->info(TextFormat::RED . "Unexpected value for victim.message, please check that the config.yml is not corrupted.");
-                        return true;
+                        return;
                     }
                     
                     $search = array(
