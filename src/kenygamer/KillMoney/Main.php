@@ -110,7 +110,7 @@ class Main extends PluginBase implements Listener
                         return true;
                     }
                     if (!is_numeric($this->config->get("victim.money"))) {
-                        $this->getLogger()->info(TextFormat::RED . "Non-numeric value for minimum.money, please check that the config.yml is not corrupted.");
+                        $this->getLogger()->info(TextFormat::RED . "Non-numeric value for victim.money, please check that the config.yml is not corrupted.");
                         return true;
                     }
                     $money_gain = $this->config->get("killer.money");
