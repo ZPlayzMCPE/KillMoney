@@ -57,7 +57,6 @@ class Main extends PluginBase implements Listener
                 return;
             } else {
                 $this->getServer()->getPluginManager()->registerEvents($this, $this);
-                $this->getLogger()->info(TextFormat::GREEN . "Enabling " . $this->getDescription()->getFullName() . "...");
                 return;
             }
         } else {
@@ -66,11 +65,6 @@ class Main extends PluginBase implements Listener
             return;
         }
         
-    }
-    
-    public function onDisable()
-    {
-        $this->getLogger()->info(TextFormat::RED . "Disabling " . $this->getDescription()->getFullName() . "...");
     }
     
     public function onDeath(PlayerDeathEvent $event)
